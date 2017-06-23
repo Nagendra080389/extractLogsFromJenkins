@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class ExtractLogs {
 
-    public static final String FILE_NAME_TO_READ = "C:\\Jenkins\\TestDoc.txt";
+    public static final String FILE_NAME_TO_READ = "C:\\Jenkins\\ConfigurationFile.txt";
 
     public static void main(String[] args) throws IOException {
         Map<String, String> propertiesMap = new HashMap<String, String>();
