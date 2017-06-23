@@ -130,7 +130,6 @@ public class ExtractLogs {
     private static void createMapOfProperties(FileReader fileReader, Map<String, String> propertiesMap) throws IOException {
         BufferedReader bufferedReader = null;
         String sCurrentLine;
-
         bufferedReader = new BufferedReader(fileReader);
 
         while ((sCurrentLine = bufferedReader.readLine()) != null) {
