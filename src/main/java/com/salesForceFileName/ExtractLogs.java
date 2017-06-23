@@ -28,6 +28,7 @@ public class ExtractLogs {
 
     public static void main(String[] args) throws IOException {
         boolean classPresent = false;
+        // Cleaning the file to push the new Changed Files
         clearTheFile();
         List<String> salesForceClasses = new ArrayList<String>();
         HttpURLConnection conn = null;
