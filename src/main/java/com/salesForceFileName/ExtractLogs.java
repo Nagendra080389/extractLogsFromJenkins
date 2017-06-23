@@ -10,7 +10,9 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by nagesingh on 6/14/2017.
@@ -24,18 +26,21 @@ import java.util.List;
 
 public class ExtractLogs {
 
-    private static String FILE_NAME = "C:\\Jenkins\\SalesForceClasses.txt";
+    public static final String FILE_NAME_TO_READ = "C:\\Jenkins\\TestDoc.txt";
 
     public static void main(String[] args) throws IOException {
+        Map<String, String> propertiesMap = new HashMap<String, String>();
+        FileReader fileReader = new FileReader(FILE_NAME_TO_READ);
+        createMapOfProperties(fileReader, propertiesMap);
         boolean classPresent = false;
         // Cleaning the file to push the new Changed Files
-        clearTheFile();
+        clearTheFile(propertiesMap);
         List<String> salesForceClasses = new ArrayList<String>();
         HttpURLConnection conn = null;
-        BufferedWriter bufferedWriter  = new BufferedWriter(new FileWriter(FILE_NAME));;
+        BufferedWriter bufferedWriter  = new BufferedWriter(new FileWriter(propertiesMap.get("ClassesTextFilepath")));;
         try {
 
-            URL url = new URL("http://localhost:8080/job/SyngentaCodeReview/api/json");
+            URL url = new URL(propertiesMap.get("JenkinsBuildURL"));
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -122,8 +127,22 @@ public class ExtractLogs {
         }
     }
 
-    private static void clearTheFile() throws IOException {
-        FileWriter fwOb = new FileWriter(FILE_NAME, false);
+    private static void createMapOfProperties(FileReader fileReader, Map<String, String> propertiesMap) throws IOException {
+        BufferedReader bufferedReader = null;
+        String sCurrentLine;
+
+        bufferedReader = new BufferedReader(fileReader);
+
+        while ((sCurrentLine = bufferedReader.readLine()) != null) {
+            sCurrentLine= sCurrentLine.replaceAll("\\s+","");
+            String[] split = sCurrentLine.split("=");
+            propertiesMap.put(split[0], split[1]);
+
+        }
+    }
+
+    private static void clearTheFile(Map<String, String> propertiesMap) throws IOException {
+        FileWriter fwOb = new FileWriter(propertiesMap.get("ClassesTextFilepath"), false);
         PrintWriter pwOb = new PrintWriter(fwOb, false);
         pwOb.flush();
         pwOb.close();
