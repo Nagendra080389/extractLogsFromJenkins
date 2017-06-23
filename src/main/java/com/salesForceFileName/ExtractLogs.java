@@ -34,7 +34,7 @@ public class ExtractLogs {
         BufferedWriter bufferedWriter  = new BufferedWriter(new FileWriter(FILE_NAME));;
         try {
 
-            URL url = new URL("http://localhost:8080/job/FirstBuild/api/json");
+            URL url = new URL("http://localhost:8080/job/SyngentaCodeReview/api/json");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
