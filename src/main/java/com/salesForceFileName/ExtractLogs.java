@@ -66,8 +66,8 @@ public class ExtractLogs {
 
                 String lastBuildUrl = jsonObject.get("url").getAsString();
 
-                URL newUrl = new URL(lastBuildUrl + "api/json");
-                //URL newUrl = new URL("http://localhost:8080/job/FirstBuild/119/api/json");
+                //URL newUrl = new URL(lastBuildUrl + "api/json");
+                URL newUrl = new URL("http://localhost:8080/job/SyngentaCodeReview/315/api/json");
                 conn = (HttpURLConnection) newUrl.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
