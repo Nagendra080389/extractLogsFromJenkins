@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by nagesingh on 6/14/2017.
  * Written just for particular USE CASE
  * There are many things to be corrected here, but this works well. No code
- * refactoring has been done. Hence the code is a messay one.
+ * refactoring has been done. Hence the code is a messy one.
  *
  * The Code will run when the build gets triggered and it will check for the affected files in the particular commit
  * and will save it to a txt file.
