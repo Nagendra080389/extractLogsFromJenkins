@@ -61,7 +61,7 @@ public class ExtractLogs {
             }
 
             if (jsonObject != null) {
-                System.out.println("jsonObject ---> "+jsonObject);
+                //System.out.println("jsonObject ---> "+jsonObject);
                 jsonObject = (JsonObject) jsonObject.get("lastBuild");
 
                 String lastBuildUrl = jsonObject.get("url").getAsString();
