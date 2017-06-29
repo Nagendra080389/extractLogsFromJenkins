@@ -9,10 +9,7 @@ import javax.ws.rs.core.Response;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by nagesingh on 6/14/2017.
@@ -42,6 +39,9 @@ public class ExtractLogs {
 
             URL url = new URL(propertiesMap.get("JenkinsBuildURL"));
             conn = (HttpURLConnection) url.openConnection();
+            String userpass = propertiesMap.get("JenkinsUserName") + ":" + propertiesMap.get("JenkinsPassWord");
+            String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
+            conn.setRequestProperty ("Authorization", basicAuth);
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
             if (conn.getResponseCode() != 200) {
@@ -69,6 +69,7 @@ public class ExtractLogs {
                 URL newUrl = new URL(lastBuildUrl + "api/json");
                 //URL newUrl = new URL("http://localhost:8080/job/FirstBuild/119/api/json");
                 conn = (HttpURLConnection) newUrl.openConnection();
+                conn.setRequestProperty ("Authorization", basicAuth);
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
                 if (conn.getResponseCode() != 200) {
