@@ -67,7 +67,7 @@ public class ExtractLogs {
                 String lastBuildUrl = jsonObject.get("url").getAsString();
 
                 URL newUrl = new URL(lastBuildUrl + "api/json");
-                //URL newUrl = new URL("http://localhost:8080/job/FirstBuild/119/api/json");
+                //URL newUrl = new URL("http://localhost:8080/job/SyngentaCodeReviewForDevelopBranch/1645/api/json");
                 conn = (HttpURLConnection) newUrl.openConnection();
                 conn.setRequestProperty ("Authorization", basicAuth);
                 conn.setRequestMethod("GET");
@@ -97,13 +97,56 @@ public class ExtractLogs {
                         for (JsonElement affectedPath : affectedPaths) {
                             String asString = affectedPath.getAsString();
                             //salesForceClasses.add(asString);
-                            if (asString != null && asString.startsWith("src/classes")) {
-                                String[] split = asString.split("/");
-                                for (String className : split) {
-                                    if (className.endsWith(".cls")) {
-                                        classPresent = true;
-                                        System.out.println("NEW CLASSES COMMITTED, PMD CODE REVIEW WILL RUN");
-                                        salesForceClasses.add(className.substring(0, className.length() - 4));
+                            if (asString != null) {
+                                if(asString.startsWith("src/classes")) {
+                                    String[] split = asString.split("/");
+                                    for (String className : split) {
+                                        if (className.endsWith(".cls")) {
+                                            classPresent = true;
+                                            System.out.println("NEW CLASSES COMMITTED, PMD CODE REVIEW WILL RUN");
+                                            salesForceClasses.add(className);
+                                        }
+                                    }
+                                }
+                                if(asString.startsWith("src/pages")) {
+                                    String[] split = asString.split("/");
+                                    for (String className : split) {
+                                        if (className.endsWith(".page")) {
+                                            classPresent = true;
+                                            System.out.println("NEW PAGES COMMITTED, PMD CODE REVIEW WILL RUN");
+                                            salesForceClasses.add(className);
+                                        }
+                                    }
+                                }
+                                if(asString.startsWith("src/triggers")) {
+                                    String[] split = asString.split("/");
+                                    for (String className : split) {
+                                        if (className.endsWith(".trigger")) {
+                                            classPresent = true;
+                                            System.out.println("NEW TRIGGERS COMMITTED, PMD CODE REVIEW WILL RUN");
+                                            salesForceClasses.add(className);
+                                        }
+                                    }
+                                }
+                                if(asString.startsWith("src/components")) {
+                                    String[] split = asString.split("/");
+                                    for (String className : split) {
+                                        if (className.endsWith(".component")) {
+                                            classPresent = true;
+                                            System.out.println("NEW COMPONENTS COMMITTED, PMD CODE REVIEW WILL RUN");
+                                            salesForceClasses.add(className);
+                                        }
+                                    }
+                                }
+                                if(asString.startsWith("src/aura")) {
+                                    String[] split = asString.split("/");
+                                    for (String className : split) {
+                                        if (className.endsWith(".aura")) {
+                                            classPresent = true;
+                                            System.out.println("NEW AURA COMMITTED, PMD CODE REVIEW WILL RUN IN FUTURE, I Don't know how" +
+                                                    ", But have patience it will come in next releases");
+                                            salesForceClasses.add(className);
+                                        }
                                     }
                                 }
                             }
